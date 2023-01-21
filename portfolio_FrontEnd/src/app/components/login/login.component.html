@@ -1,0 +1,34 @@
+<header class="Login-header">
+    <div class="Auth-form-container">
+        <form class="Auth-form" onSubmit={submitHandler}>
+            <div class="Auth-form-content">
+                <h3 class="Auth-form-title">Iniciar Sesión</h3>
+                <div class="form-group mt-3">
+                    <input
+                    type="text"
+                    name="username"
+                    class="form-control mt-1"
+                    placeholder="Usuario"
+                    onChange={changeHandler}
+                    required
+                    />
+                </div>
+                <div class="form-group mt-3">
+                    <input
+                    type="password"
+                    name="password"
+                    class="form-control mt-1"
+                    placeholder="Contraseña"
+                    onChange={changeHandler}
+                    required
+                    />
+                </div>
+                <div class="d-grid gap-2 mt-3">
+                    <button type="submit" class="btn btn-dark">
+                    Acceder
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</header>

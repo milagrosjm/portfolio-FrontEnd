@@ -1,0 +1,16 @@
+.portfolio-conteiner{
+    background-image: url("../../../assets/h3.png");
+}
+
+.nav-header{
+    color: white;
+}
+
+.navbar{
+    padding-right: 10px;
+}
+
+.fa-brands, .fa-solid{
+    color: white;
+    padding-right: 1rem;
+}

@@ -1,0 +1,9 @@
+.projects-conteiner{
+    background-image: url("../../../assets/background/2.png");
+    color: black;
+}
+
+.projects-table{
+    padding: 2rem 3rem 3rem 3rem;
+    text-align: center;
+}

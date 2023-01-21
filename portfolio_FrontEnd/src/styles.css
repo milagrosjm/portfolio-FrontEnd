@@ -1,5 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
-body{
-    background-image: url("./assets/background3.png");
-    color: white;
+@import "../node_modules/font-awesome/css/font-awesome.min.css";
+
+.section-tittle{
+    font-family: Raleway;
+    text-align: center;
+    padding-top: 3rem;
+    font-weight: 900;
+    font-size: 25px;
+
 }
+
+
+

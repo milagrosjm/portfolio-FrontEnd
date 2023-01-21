@@ -1,0 +1,14 @@
+.aboutMe-conteiner{
+    background-image: url("../../../assets/background/2.png");
+    color: black;
+}
+
+.aboutMe-photo {
+    border-radius: 60%;
+    height: 10rem;
+    width: 10rem;
+}
+
+.aboutMe-table{
+    padding: 2rem 3rem 3rem 3rem;
+}

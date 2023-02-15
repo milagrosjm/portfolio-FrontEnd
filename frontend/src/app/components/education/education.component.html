@@ -3,19 +3,24 @@
         Educación
     </div>
     <div class="education-table">
-        <div class="row ">
-            <div class="col-12">
-                Ingeniera en Sistemas de Informacion
+        <tr *ngFor="let ed of educationList">
+            <div class="row ">
+                <div class="col-12">
+                    {{ed.degree}}
+                </div>
             </div>
-        </div>
-        <div class="row ">
-            <div class="col-6">
-                UNT - FRC
+            <div class="row ">
+                <div class="col-6">
+                    {{ed.institution}}
+                </div>
+                <div class="col-3">
+                    {{ed.start_date}} - 
+                </div>
+                <div class="col-3">
+                    {{ed.end_date}}
+                </div>
             </div>
-            <div class="col-6">
-                2019 - Actualidad
-            </div>
-        </div>
+        </tr>
     </div>
 </div>
 

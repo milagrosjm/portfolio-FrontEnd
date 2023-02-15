@@ -3,24 +3,31 @@
         Experiencia
     </div>
     <div class="experience-table">
-        <div class="row ">
-            <div class="col-12">
-                Trainee Python
+        <tr *ngFor="let exp of experienceList">
+            <div class="row ">
+                <div class="col-12">
+                    {{exp.role}}
+                </div>
             </div>
-        </div>
-        <div class="row ">
-            <div class="col-6">
-                INCLUIT
+            <div class="row ">
+                <div class="col-6">
+                    {{exp.company_name}}
+                </div>
+                <div class="col-3">
+                    {{exp.start_date}}
+                </div>
+                <div class="col-3">
+                    - {{exp.end_date}}
+                </div>
             </div>
-            <div class="col-6">
-                2022 - 2023
+            <div class="row ">
+                <div class="col-12">
+                    {{exp.description}}
+                </div>
             </div>
-        </div>
-        <div class="row ">
-            <div class="col-12">
-                *Tareas*
-            </div>
-        </div>
+
+        </tr>
+       
     </div>
 </div>
 

@@ -1,0 +1,20 @@
+<div class="projects-conteiner">
+    <div class="section-tittle">
+        Proyectos
+    </div>
+    <div class="projects-table">
+            <div class="row">
+                <div class="col-sm-4 project-item" *ngFor="let p of projectsList">
+                    <div class="card text-white bg-dark mb-3" style="width: 20rem;" >
+                        <img class="card-img-top" src={{p.photo}} alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{p.tittle}}</h5>
+                            <p class="card-text">{{p.description}}</p>
+                            <a href="#" class="btn btn-dark">Link</a>
+                        </div>
+                    </div>
+                </div>    <br/><br/>
+            </div> 
+    </div>
+</div>
+

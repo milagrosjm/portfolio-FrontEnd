@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { User } from 'src/app/models/user';
 import { AboutMeService } from 'src/app/services/about-me.service';
 
 @Component({
@@ -9,8 +10,8 @@ import { AboutMeService } from 'src/app/services/about-me.service';
 })
 export class AboutMeComponent {
 
-  about_me=""; 
   username : any = ""; 
+  user!: User; 
 
   constructor(private service: AboutMeService, private route : ActivatedRoute){
 
@@ -18,7 +19,7 @@ export class AboutMeComponent {
 
   getAboutMeText() {
     this.service.getAboutMeText(this.username)
-      .subscribe((data : any) => {this.about_me = data.about_me})
+      .subscribe((data : User) => {this.user = data})
       ;
   }
 

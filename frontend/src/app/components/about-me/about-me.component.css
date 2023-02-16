@@ -11,4 +11,11 @@
 
 .aboutMe-table{
     padding: 2rem 3rem 3rem 3rem;
+    font-family: Raleway;
+}
+
+.aboutMe-text{
+    padding-left: 8rem;
+    font-size: large;
+
 }

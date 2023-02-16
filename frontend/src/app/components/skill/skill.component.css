@@ -1,0 +1,20 @@
+.skills-conteiner{
+    background-image: url("../../../assets/background/5.png");
+    color: black;
+}
+
+.skill-table{
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    padding-left: 3rem;
+}
+.skill-icon{
+    aspect-ratio: 3/2;
+    object-fit: contain;
+    width: 10rem;
+}
+
+.row{
+    padding-bottom: 1rem;
+}
+

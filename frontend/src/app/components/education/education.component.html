@@ -3,24 +3,24 @@
         Educación
     </div>
     <div class="education-table">
-        <tr *ngFor="let ed of educationList">
+        <div class="education-item" *ngFor="let ed of educationList">
             <div class="row ">
-                <div class="col-12">
+                <div class="col-12 education-degree">
                     {{ed.degree}}
                 </div>
             </div>
             <div class="row ">
-                <div class="col-6">
+                <div class="col-6 education-institution">
                     {{ed.institution}}
                 </div>
-                <div class="col-3">
-                    {{ed.start_date}} - 
+                <div *ngIf="ed.is_current; else is_not_current" class="col-6 education-date">
+                    {{ed.start_date}} -  Actualidad
                 </div>
-                <div class="col-3">
-                    {{ed.end_date}}
-                </div>
+                <ng-template #is_not_current class="col-4 experience-date">
+                    {{ed.start_date}}  - {{ed.end_date}}
+                </ng-template>
             </div>
-        </tr>
+        </div>
     </div>
 </div>
 

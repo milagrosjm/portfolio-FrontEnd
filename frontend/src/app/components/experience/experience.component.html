@@ -3,30 +3,32 @@
         Experiencia
     </div>
     <div class="experience-table">
-        <tr *ngFor="let exp of experienceList">
+        <div class="experience-item" *ngFor="let exp of experienceList">
+            <div class="circle-dot"></div>
             <div class="row ">
-                <div class="col-12">
+                <div class="col-12 experience-role">
                     {{exp.role}}
                 </div>
             </div>
             <div class="row ">
-                <div class="col-6">
+                <div class="col-6 experience-company">
                     {{exp.company_name}}
                 </div>
-                <div class="col-3">
-                    {{exp.start_date}}
+                <div *ngIf="exp.is_current; else is_not_current" class="col-6 experience-date">
+                    {{exp.start_date}}  - Actualidad
                 </div>
-                <div class="col-3">
-                    - {{exp.end_date}}
-                </div>
+                <ng-template #is_not_current class="col-4 experience-date">
+                    {{exp.start_date}}  - {{exp.end_date}}
+                </ng-template>
+
             </div>
             <div class="row ">
-                <div class="col-12">
+                <div class="col-12 experience-description">
                     {{exp.description}}
                 </div>
             </div>
-
-        </tr>
+            
+        </div>
        
     </div>
 </div>

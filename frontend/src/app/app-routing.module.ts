@@ -18,11 +18,17 @@ const routes: Routes = [
     path:'portfolio/:username',
     component: PortfolioComponent
   },
+  {
+    
+    path:'portfolio/edit/:username',
+    component: PortfolioComponent
+  },
   
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,
+    { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

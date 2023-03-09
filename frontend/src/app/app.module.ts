@@ -14,6 +14,8 @@ import { ProjectComponent } from './components/project/project.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { LoginComponent } from './components/login/login.component';
 import { FrontPageComponent } from './components/front-page/front-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -26,15 +28,18 @@ import { FrontPageComponent } from './components/front-page/front-page.component
     ProjectComponent,
     PortfolioComponent,
     LoginComponent,
-    FrontPageComponent
+    FrontPageComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [PortfolioComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

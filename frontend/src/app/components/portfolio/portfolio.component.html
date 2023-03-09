@@ -22,7 +22,11 @@
                     <a href="https://github.com/milagrosjm" target="_blank"><i class="fa fa-brands fa-github fa-2x"></i></a>
                 </li>
                 <li class="nav-item">
-                    <button class="btn btn-dark" (click)="login()">Iniciar Sesion</button>
+                    <button *ngIf="!isLoggedIn; else is_loggedInTrue" class="btn btn-dark" (click)="login()">Iniciar Sesion</button>
+                    <ng-template #is_loggedInTrue  (click)="logout()">
+                        <button class="btn btn-dark" (click)="logout()">Cerrar Sesion</button>
+                    </ng-template>
+    
                 </li>
             </ul>
         </div>

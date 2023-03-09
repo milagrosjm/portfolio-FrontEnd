@@ -1,6 +1,6 @@
 <header class="Login-header">
     <div class="Auth-form-container">
-        <form class="Auth-form" onSubmit={submitHandler}>
+        <form name="formLogin" class="Auth-form" [formGroup]='formLogin' onSubmit={submitHandler}>
             <div class="Auth-form-content">
                 <h3 class="Auth-form-title">Iniciar Sesión</h3>
                 <div class="form-group mt-3">
@@ -11,7 +11,19 @@
                     placeholder="Usuario"
                     onChange={changeHandler}
                     required
+                    formControlName="username"
+                    [ngClass]="{'is-invalid': (formLogin.controls['username'].touched)  
+                    && formLogin.controls['username'].errors}"
                     />
+                </div>
+                <div class="validation" *ngIf="(formLogin.controls['username'].touched ) 
+                    && formLogin.controls['username'].hasError('required')">
+                    Dato requerido.
+                </div>
+                <div class="validation"
+                    *ngIf="(formLogin.controls['username'].touched ) 
+                    && (formLogin.controls['username'].hasError('minlength') || formLogin.controls['username'].hasError('maxlength')) ">
+                    Dato texto, 4 a 50 caracteres.
                 </div>
                 <div class="form-group mt-3">
                     <input
@@ -21,12 +33,45 @@
                     placeholder="Contraseña"
                     onChange={changeHandler}
                     required
+                    formControlName="password"
+                    [ngClass]="{'is-invalid': (formLogin.controls['password'].touched)  
+                    && formLogin.controls['password'].errors}"
                     />
                 </div>
+                <div class="validation" *ngIf="(formLogin.controls['password'].touched ) 
+                    && formLogin.controls['password'].hasError('required')">
+                    Dato requerido.
+                </div>
+                <div class="validation"
+                    *ngIf="(formLogin.controls['password'].touched ) 
+                    && (formLogin.controls['password'].hasError('minlength') || formLogin.controls['password'].hasError('maxlength')) ">
+                    Dato texto, 4 a 50 caracteres.
+                </div>
                 <div class="d-grid gap-2 mt-3">
-                    <button type="submit" class="btn btn-dark">
+                    <button type="submit" class="btn btn-dark" (click)="Login()">
                     Acceder
                     </button>
+                </div>
+                <div class="modal"
+                tabindex="-1"
+                role="dialog"
+                [ngStyle]="{'display':displayStyle}">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">ERROR</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closePopUp()"></button>
+                            </div>
+                            <div class="modal-body">
+                                Los credenciales ingresadas son incorrectas. Intente de nuevo. 
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
+                                
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </form>

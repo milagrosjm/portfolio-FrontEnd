@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Education } from 'src/app/models/education';
 import { EducationService } from 'src/app/services/education.service';
@@ -8,7 +8,7 @@ import { EducationService } from 'src/app/services/education.service';
   templateUrl: './education.component.html',
   styleUrls: ['./education.component.css']
 })
-export class EducationComponent {
+export class EducationComponent implements OnInit{
 
   educationList: Education[] = [];
   username : any = "";
@@ -18,7 +18,7 @@ export class EducationComponent {
 
   getAllEducation() {
     this.service.getAllEducationFromUser(this.username)
-      .subscribe((data : Education[]) => {this.educationList = data; console.log(this.educationList)})
+      .subscribe((data : Education[]) => {this.educationList = data})
       ;
   }
 

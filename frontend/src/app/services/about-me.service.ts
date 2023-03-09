@@ -12,8 +12,11 @@ export class AboutMeService {
   aboutMeUrl = environment.ApiUrl + '/user/';
   
   getAboutMeText(username : any) {
-    this.aboutMeUrl+=username
-    return this.http.get<any>(this.aboutMeUrl);
+    return this.http.get<any>(this.aboutMeUrl+username);
 
+  }
+
+  updateAboutMe(formCopy: any){
+    return this.http.post<any>(this.aboutMeUrl+"update/aboutMe", formCopy);
   }
 }

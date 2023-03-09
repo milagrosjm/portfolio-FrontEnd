@@ -1,6 +1,7 @@
 .aboutMe-conteiner{
     background-image: url("../../../assets/background/2.png");
     color: black;
+   
 }
 
 .aboutMe-photo {
@@ -18,4 +19,9 @@
     padding-left: 8rem;
     font-size: large;
 
+}
+
+.aboutMe-edit{
+    padding: 2rem 3rem 3rem 3rem;
+    font-family: Raleway;
 }

@@ -1,7 +1,10 @@
 .header-conteiner{
     background-image: url("../../../assets/background/1.png");
     color: black;
-    height: 35rem;
+    height: 100%;
+    display: block;
+    min-height:100%;
+    width:100%;
     padding-right: 10px;
 }
 

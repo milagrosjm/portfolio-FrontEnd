@@ -7,3 +7,10 @@
     padding: 2rem 3rem 3rem 3rem;
     text-align: center;
 }
+
+.fa-regular, .fa-brands{
+    color: white;
+    padding-left: 1rem;
+}
+
+

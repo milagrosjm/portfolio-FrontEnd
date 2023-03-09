@@ -1,15 +1,52 @@
-<div class="aboutMe-conteiner">
+<section class="aboutMe-conteiner">
     <div class="section-tittle">
             Sobre Mi
     </div>
     <div class="aboutMe-table">
-        <div class="row">
-            <div class="col-9 aboutMe-text">
-                {{user.about_me}}
-            </div>
-            <div class="col-md-3 mb-2">
-                <img class="aboutMe-photo" src={{user.photo}} alt="Avatar">
+        <div class="aboutMe-show" *ngIf="!isLoggedIn; else is_loggedInTrue">
+            <div class="row">
+                <div class="col-9 aboutMe-text">
+                    {{user.about_me}}
+                </div>
+                <div class="col-md-3 mb-2">
+                    <img class="aboutMe-photo" src={{user.photo}} alt="Avatar">
+                </div>
             </div>
         </div>
+        <div class="aboutMe-edit">
+            <ng-template #is_loggedInTrue class="aboutMe-edit" >
+                <form name="formAboutMe" [formGroup]='formAboutMe'>
+                    <div class="row mb-2">
+                        <div class="col-9">
+                            <div class="form-group">
+                                <input type="text" name="aboutMe" formControlName="aboutMe" value={{user.about_me}} class="form-control mt-1 bg-transparent"
+                                [ngClass]="{'is-invalid': (formAboutMe.controls['aboutMe'].touched)  
+                                && formAboutMe.controls['aboutMe'].errors}">
+                            </div>
+                            <div class="validation" *ngIf="(formAboutMe.controls['aboutMe'].touched ) 
+                            && formAboutMe.controls['aboutMe'].hasError('required')">
+                            Dato requerido.
+                            </div>
+                            <div class="validation"
+                                *ngIf="(formAboutMe.controls['aboutMe'].touched ) 
+                                && (formAboutMe.controls['aboutMe'].hasError('minlength') || formAboutMe.controls['aboutMe'].hasError('maxlength')) ">
+                                El dato debe tener de 5 a 250 caracteres.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-9 text-end">
+                            <i class="fa fa-regular fa-ban fa-2x"></i>
+                        </div>
+                        <div class="col-3">
+                            <i class="fa fa-solid fa-check fa-2x" (click)="save()"></i>
+                        </div>
+                    </div>
+                </form>
+            </ng-template>
+
+        </div>
+        
     </div>
-</div>
+    
+</section>

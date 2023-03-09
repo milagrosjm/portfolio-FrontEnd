@@ -1,5 +1,8 @@
-import { Component, createNgModule } from '@angular/core';
+import { Component, createNgModule, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { isLoggedIn } from 'src/app/auth';
+import { User } from 'src/app/models/user';
 import { HeaderService } from 'src/app/services/header.service';
 
 
@@ -8,13 +11,9 @@ import { HeaderService } from 'src/app/services/header.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent{
+export class HeaderComponent implements OnInit{
 
-  header = {"first_name": "",
-  "second_name": "",
-  "lastname":"",
-  "degree":""
-  }
+  user!: User; 
 
   first_name=""; 
 
@@ -22,18 +21,38 @@ export class HeaderComponent{
 
   }
 
-  username : any = ""; 
+  username: String = this.route.snapshot.paramMap.get('username')!; 
+  isLoggedIn: boolean = isLoggedIn(this.username);
+
+  formHeader = new FormGroup({
+    firstname: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(40),
+      Validators.minLength(5)
+    ]),
+    secondname: new FormControl('', [
+    ]),
+    lastname: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(40),
+      Validators.minLength(5)
+    ]),
+    degree: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(250),
+      Validators.minLength(5)
+    ])
+  })
 
   getHeader() {
     this.headerService.getHeader(this.username)
-      .subscribe((data : any) => {console.log(data.degree); this.header.lastname=data.lastname; this.header.degree=data.degree; this.header.first_name=data.first_name; this.header.second_name=data.second_name})
-      ;
+      .subscribe((data : any) => {this.user = data});
       //console.log(this.header)
   }
 
   ngOnInit(){
-    this.username = this.route.snapshot.paramMap.get('username');
-    //console.log(this.username);
+    this.isLoggedIn= isLoggedIn(this.username);
+    console.log(this.username);
     this.getHeader();
     //console.log(this.first_name)
   }

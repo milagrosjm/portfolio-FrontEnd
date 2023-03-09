@@ -1,25 +1,123 @@
-<div class="header-conteiner">
+<section class="header-conteiner">
     <div class="header-table">
-        <div class="row row-bottom-margin">
-            <div class="col-6 mb-0 pb-0 mt-0 pt-0 header-tittle">
-                {{header.first_name}}
+        <div class="header-show" *ngIf="!isLoggedIn; else is_loggedInTrue">
+            <div class="row row-bottom-margin">
+                <div class="col-6 mb-0 pb-0 mt-0 pt-0 header-tittle">
+                    {{user.first_name}}
+                </div>
+            </div>
+            <div class="row row-bottom-margin">
+                <div class="col-6 mb-0 pb-0 mt-0 pt-0 header-tittle">
+                    {{user.second_name}}
+                </div>
+            </div>
+            <div class="row row-bottom-margin">
+                <div class="col-6 mb-0 pb-0 mt-0 pt-0 header-tittle">
+                    {{user.lastname}}
+                </div>
+                <div class="col-6 header-subtittle">
+                    <br><br>
+                    {{user.degree}}
+                </div>
             </div>
         </div>
-        <div class="row row-bottom-margin">
-            <div class="col-6 mb-0 pb-0 mt-0 pt-0 header-tittle">
-                {{header.second_name}}
-            </div>
-        </div>
-        <div class="row row-bottom-margin">
-            <div class="col-6 mb-0 pb-0 mt-0 pt-0 header-tittle">
-                {{header.lastname}}
-            </div>
-            <div class="col-6 header-subtittle">
-                <br><br>
-                {{header.degree}}
-            </div>
+        <div class="header-edit">
+            <ng-template #is_loggedInTrue>
+                <form name="formHeader" [formGroup]='formHeader'>
+                    <div class="row row-bottom-margin">
+                        <div class="col-6 mb-0 pb-0 mt-0 pt-0">
+                            <input type="text" formControlName="firstname" value={{user.first_name}} class="form-control mt-1 bg-transparent header-tittle"
+                            [ngClass]="{'is-invalid': (formHeader.controls['firstname'].touched)  
+                            && formHeader.controls['firstname'].errors}">
+                            <div class="validation" *ngIf="(formHeader.controls['firstname'].touched ) 
+                            && formHeader.controls['firstname'].hasError('required')">
+                            Dato requerido.
+                            </div>
+                            <div class="validation"
+                                *ngIf="(formHeader.controls['firstname'].touched ) 
+                                && (formHeader.controls['firstname'].hasError('minlength') || formHeader.controls['firstname'].hasError('maxlength')) ">
+                                El dato debe tener de 5 a 40 caracteres.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-9 text-end">
+                            <i class="fa fa-regular fa-ban fa-2x"></i>
+                        </div>
+                        <div class="col-3">
+                            <i class="fa fa-solid fa-check fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="row row-bottom-margin">
+                        <div class="col-6 mb-0 pb-0 mt-0 pt-0">
+                            <input type="text" formControlName="secondname" value={{user.second_name}} class="form-control mt-1 bg-transparent header-tittle"
+                            [ngClass]="{'is-invalid': (formHeader.controls['secondname'].touched)  
+                            && formHeader.controls['secondname'].errors}">
+                            <div class="validation"
+                                *ngIf="(formHeader.controls['secondname'].touched ) 
+                                && (formHeader.controls['secondname'].hasError('minlength') || formHeader.controls['secondname'].hasError('maxlength')) ">
+                                El dato debe tener de 5 a 40 caracteres.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-9 text-end">
+                            <i class="fa fa-regular fa-ban fa-2x"></i>
+                        </div>
+                        <div class="col-3">
+                            <i class="fa fa-solid fa-check fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="row row-bottom-margin">
+                        <div class="col-6 mb-0 pb-0 mt-0 pt-0">
+                            <input type="text" formControlName="lastname" value={{user.lastname}} class="form-control mt-1 bg-transparent header-tittle"
+                            [ngClass]="{'is-invalid': (formHeader.controls['lastname'].touched)  
+                            && formHeader.controls['lastname'].errors}">
+                            <div class="validation" *ngIf="(formHeader.controls['lastname'].touched ) 
+                            && formHeader.controls['lastname'].hasError('required')">
+                            Dato requerido.
+                            </div>
+                            <div class="validation"
+                                *ngIf="(formHeader.controls['lastname'].touched ) 
+                                && (formHeader.controls['lastname'].hasError('minlength') || formHeader.controls['lastname'].hasError('maxlength')) ">
+                                El dato debe tener de 5 a 40 caracteres.
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-9 text-end">
+                                <i class="fa fa-regular fa-ban fa-2x"></i>
+                            </div>
+                            <div class="col-3">
+                                <i class="fa fa-solid fa-check fa-2x"></i>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <br><br>
+                            <input type="text" formControlName="degree" value={{user.degree}} class="form-control mt-1 bg-transparent header-subtittle"
+                            [ngClass]="{'is-invalid': (formHeader.controls['degree'].touched)  
+                            && formHeader.controls['degree'].errors}">
+                            <div class="validation" *ngIf="(formHeader.controls['degree'].touched ) 
+                            && formHeader.controls['degree'].hasError('required')">
+                            Dato requerido.
+                            </div>
+                            <div class="validation"
+                                *ngIf="(formHeader.controls['degree'].touched ) 
+                                && (formHeader.controls['firstname'].hasError('minlength') || formHeader.controls['degree'].hasError('maxlength')) ">
+                                El dato debe tener de 5 a 250 caracteres.
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-9 text-end">
+                                <i class="fa fa-regular fa-ban fa-2x"></i>
+                            </div>
+                            <div class="col-3">
+                                <i class="fa fa-solid fa-check fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </ng-template>
         </div>
     </div>
-
-</div>
+</section>
 

@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry} from 'rxjs/operators';
+import { catchError, retry, map} from 'rxjs/operators';
 import { environment } from '../../environment/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HeaderService {
+export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  headerUrl = environment.ApiUrl + '/user/';
-  
-  getHeader(username : any) {
-    return this.http.get<any>(this.headerUrl+username);
+  loginUrl = environment.ApiUrl + '/user/login';
 
+  httpOptions = {
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
   }
-
   
+  getUser(formCopy : any) {
+    return this.http.post<any>(this.loginUrl, formCopy);
+  }
 }

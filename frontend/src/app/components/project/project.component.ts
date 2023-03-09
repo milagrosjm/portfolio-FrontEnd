@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from 'src/app/models/project';
 import { ProjectService } from 'src/app/services/project.service';
@@ -8,7 +8,7 @@ import { ProjectService } from 'src/app/services/project.service';
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.css']
 })
-export class ProjectComponent {
+export class ProjectComponent implements OnInit{
 
   projectsList: Project[] = [];
   username : any = "";
@@ -18,13 +18,14 @@ export class ProjectComponent {
 
   getAllProjects() {
     this.service.getAllProjectsFromUser(this.username)
-      .subscribe((data : Project[]) => {this.projectsList = data; console.log(this.projectsList)})
+      .subscribe((data : Project[]) => {this.projectsList = data})
       ;
   }
 
   ngOnInit(){
     this.username = this.route.snapshot.paramMap.get('username');
     this.getAllProjects();
+    console.log(this.projectsList)
   }
 
 }

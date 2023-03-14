@@ -12,6 +12,7 @@ export class AboutMeService {
   aboutMeUrl = environment.ApiUrl + '/user/';
   
   getAboutMeText(username : any) {
+    console.log(this.aboutMeUrl+username)
     return this.http.get<any>(this.aboutMeUrl+username);
 
   }

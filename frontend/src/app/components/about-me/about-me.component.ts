@@ -13,11 +13,12 @@ import { AboutMeService } from 'src/app/services/about-me.service';
 export class AboutMeComponent implements OnInit {
 
   username : String = this.route.snapshot.paramMap.get('username')!; 
-  user!: User; 
+  user!: User; //no lo uso
   isLoggedIn: boolean = isLoggedIn(this.username);
+  displayStyle = "none";
 
   formAboutMe = new FormGroup({
-    aboutMe: new FormControl('', [
+    about_me: new FormControl('', [
       Validators.required,
       Validators.maxLength(250),
       Validators.minLength(5)
@@ -33,16 +34,20 @@ export class AboutMeComponent implements OnInit {
 
   getAboutMeText() {
     this.service.getAboutMeText(this.username)
-      .subscribe((data : User) => {this.user = data})
+      .subscribe((data : any) => {this.formAboutMe.patchValue(data); console.log(this.formAboutMe)})
       ;
   }
 
   save(){
     const formCopy = {...this.formAboutMe.value};
     this.service.updateAboutMe(formCopy)
-    .subscribe((data : any) => {console.log("salio bien");
+    .subscribe((data : any) => {this.displayStyle = "block";
      })
     ;
+  }
+
+  closePopUp(){
+    this.displayStyle = "none"; 
   }
 
   ngOnInit(){

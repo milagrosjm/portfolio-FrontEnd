@@ -6,10 +6,10 @@
         <div class="aboutMe-show" *ngIf="!isLoggedIn; else is_loggedInTrue">
             <div class="row">
                 <div class="col-9 aboutMe-text">
-                    {{user.about_me}}
+                    {{formAboutMe.value.about_me}}
                 </div>
                 <div class="col-md-3 mb-2">
-                    <img class="aboutMe-photo" src={{user.photo}} alt="Avatar">
+                    <img class="aboutMe-photo" alt="Avatar">
                 </div>
             </div>
         </div>
@@ -18,25 +18,18 @@
                 <form name="formAboutMe" [formGroup]='formAboutMe'>
                     <div class="row mb-2">
                         <div class="col-9">
-                            <div class="form-group">
-                                <input type="text" name="aboutMe" formControlName="aboutMe" value={{user.about_me}} class="form-control mt-1 bg-transparent"
-                                [ngClass]="{'is-invalid': (formAboutMe.controls['aboutMe'].touched)  
-                                && formAboutMe.controls['aboutMe'].errors}">
-                            </div>
-                            <div class="validation" *ngIf="(formAboutMe.controls['aboutMe'].touched ) 
-                            && formAboutMe.controls['aboutMe'].hasError('required')">
+                            <textarea type="text" name="aboutMe" formControlName="about_me" class="form-control mt-1 bg-transparent"
+                            [ngClass]="{'is-invalid': (formAboutMe.controls['about_me'].touched)  
+                            && formAboutMe.controls['about_me'].errors}"></textarea>
+                            <div class="validation" *ngIf="(formAboutMe.controls['about_me'].touched ) 
+                            && formAboutMe.controls['about_me'].hasError('required')">
                             Dato requerido.
                             </div>
                             <div class="validation"
-                                *ngIf="(formAboutMe.controls['aboutMe'].touched ) 
-                                && (formAboutMe.controls['aboutMe'].hasError('minlength') || formAboutMe.controls['aboutMe'].hasError('maxlength')) ">
+                                *ngIf="(formAboutMe.controls['about_me'].touched ) 
+                                && (formAboutMe.controls['about_me'].hasError('minlength') || formAboutMe.controls['about_me'].hasError('maxlength')) ">
                                 El dato debe tener de 5 a 250 caracteres.
                             </div>
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-9 text-end">
-                            <i class="fa fa-regular fa-ban fa-2x"></i>
                         </div>
                         <div class="col-3">
                             <i class="fa fa-solid fa-check fa-2x" (click)="save()"></i>
@@ -44,8 +37,29 @@
                     </div>
                 </form>
             </ng-template>
-
         </div>
+
+        <div class="modal"
+                tabindex="-1"
+                role="dialog"
+                [ngStyle]="{'display':displayStyle}">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">GUARDADO</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closePopUp()"></button>
+                            </div>
+                            <div class="modal-body">
+                                Los datos fueron modificados correctamente. 
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
         
     </div>
     

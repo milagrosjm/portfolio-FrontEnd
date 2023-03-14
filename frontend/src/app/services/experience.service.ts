@@ -12,10 +12,24 @@ export class ExperienceService {
   experienceUrl = environment.ApiUrl + '/experience/';
 
   getAllExperienceFromUser(username : any) {
-    this.experienceUrl+=username
-    return this.http.get<any>(this.experienceUrl);
+    return this.http.get<any>(this.experienceUrl+username);
 
   }
+
+  getExperienceDetail(id: number){
+    return this.http.get<any>(this.experienceUrl+"detail/"+id)
+  }
+
+  updateExperience(exp : any){
+      return this.http.post<any>(this.experienceUrl+"update", exp);
+
+  }
+
+  deleteExperience(exp : any){
+    return this.http.delete<any>(this.experienceUrl+"delete/"+exp.id);
+
+}
+
 
 
 }

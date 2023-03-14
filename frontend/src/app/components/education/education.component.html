@@ -3,6 +3,11 @@
         Educación
     </div>
     <div class="education-table">
+        <div class="row mb-2" *ngIf="isLoggedIn">
+            <div class="col-12 text-end">
+                <i class="fa fa-solid fa-plus fa-2x" (click)="add()"></i>
+            </div>
+        </div>
         <div class="education-item" *ngFor="let ed of educationList">
             <div class="row ">
                 <div class="col-12 education-degree">
@@ -20,7 +25,157 @@
                     {{ed.start_date}}  - {{ed.end_date}}
                 </ng-template>
             </div>
+            <div class="row mb-2" *ngIf="isLoggedIn">
+                <div class="col-9 text-end">
+                    <i class="fa fa-regular fa-ban fa-2x" (click)="deleteCheck(ed)"></i>
+                </div>
+                <div class="col-3">
+                    <i class="fa fa-solid fa-pencil fa-2x" (click)="edit(ed)"></i>
+                </div>
+            </div> 
         </div>
+        
+
+        <div class="modal"
+                tabindex="-1"
+                role="dialog"
+                [ngStyle]="{'display':displayStyleForm}">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">EDITAR</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closePopUp()"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form name="formHeader" [formGroup]='formEducation'>
+                                    <div class="row">
+                                        <label class="col-6 col-form-label"><strong>Titulo</strong></label>
+                                        <label class="col-6 col-form-label"><strong>Institucion</strong></label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="text" formControlName="degree" class="form-control mt-1 bg-transparent header-tittle"
+                                            [ngClass]="{'is-invalid': (formEducation.controls['degree'].touched)  
+                                            && formEducation.controls['degree'].errors}">
+                                            <div class="validation" *ngIf="(formEducation.controls['degree'].touched ) 
+                                            && formEducation.controls['degree'].hasError('required')">
+                                            Dato requerido.
+                                            </div>
+                                            <div class="validation"
+                                                *ngIf="(formEducation.controls['degree'].touched ) 
+                                                && (formEducation.controls['degree'].hasError('minlength') || formEducation.controls['degree'].hasError('maxlength')) ">
+                                                El dato debe tener de 5 a 40 caracteres.
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" formControlName="institution" class="form-control mt-1 bg-transparent header-tittle"
+                                            [ngClass]="{'is-invalid': (formEducation.controls['institution'].touched)  
+                                            && formEducation.controls['institution'].errors}">
+                                            <div class="validation" *ngIf="(formEducation.controls['institution'].touched ) 
+                                            && formEducation.controls['institution'].hasError('required')">
+                                            Dato requerido.
+                                            </div>
+                                            <div class="validation"
+                                                *ngIf="(formEducation.controls['institution'].touched ) 
+                                                && (formEducation.controls['institution'].hasError('minlength') || formEducation.controls['institution'].hasError('maxlength')) ">
+                                                El dato debe tener de 5 a 40 caracteres.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <label class="col-6 col-form-label"><strong>Fecha de comienzo</strong></label>
+                                        <label class="col-6 col-form-label"><strong>Fecha de finalizacion</strong></label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="text" formControlName="start_date" class="form-control mt-1 bg-transparent header-tittle"
+                                            [ngClass]="{'is-invalid': (formEducation.controls['start_date'].touched)  
+                                            && formEducation.controls['start_date'].errors}">
+                                            <div class="validation" *ngIf="(formEducation.controls['start_date'].touched ) 
+                                            && formEducation.controls['start_date'].hasError('required')">
+                                            Dato requerido.
+                                            </div>
+                                            <div class="validation"
+                                                *ngIf="(formEducation.controls['start_date'].touched ) 
+                                                && (formEducation.controls['start_date'].hasError('minlength') || formEducation.controls['start_date'].hasError('maxlength')) ">
+                                                El dato debe tener de 5 a 40 caracteres.
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" formControlName="end_date" class="form-control mt-1 bg-transparent header-tittle"
+                                            [ngClass]="{'is-invalid': (formEducation.controls['end_date'].touched)  
+                                            && formEducation.controls['end_date'].errors}">
+                                            <div class="validation" *ngIf="(formEducation.controls['end_date'].touched ) 
+                                            && formEducation.controls['end_date'].hasError('required')">
+                                            Dato requerido.
+                                            </div>
+                                            <div class="validation"
+                                                *ngIf="(formEducation.controls['end_date'].touched ) 
+                                                && (formEducation.controls['end_date'].hasError('minlength') || formEducation.controls['end_date'].hasError('maxlength')) ">
+                                                El dato debe tener de 5 a 40 caracteres.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <input type="checkbox" formControlName="is_current">&nbsp;
+                                            <label class="col-form-label"><strong>Es actual</strong></label> 
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="save()">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+
+        <div class="modal"
+                tabindex="-1"
+                role="dialog"
+                [ngStyle]="{'display':displayStyleCheck}">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">VALIDACION</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closePopUp()"></button>
+                            </div>
+                            <div class="modal-body">
+                                ¿Esta seguro de que quiere eliminar el item?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="delete(edDelete)">Confirmar</button>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+
+        <div class="modal"
+        tabindex="-1"
+        role="dialog"
+        [ngStyle]="{'display':displayStyleMsg}">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">{{this.action}}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closePopUp()"></button>
+                    </div>
+                    <div class="modal-body">
+                        La operacion fue realizada correctamente. 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </section>
 

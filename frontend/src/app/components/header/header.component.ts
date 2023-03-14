@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit{
 
   user!: User; 
 
-  first_name=""; 
+  displayStyle = "none";
 
   constructor(private headerService: HeaderService, private route : ActivatedRoute){
 
@@ -25,12 +25,14 @@ export class HeaderComponent implements OnInit{
   isLoggedIn: boolean = isLoggedIn(this.username);
 
   formHeader = new FormGroup({
-    firstname: new FormControl('', [
+    first_name: new FormControl('', [
       Validators.required,
       Validators.maxLength(40),
       Validators.minLength(5)
     ]),
-    secondname: new FormControl('', [
+    second_name: new FormControl('', [
+      Validators.maxLength(40),
+      Validators.minLength(5)
     ]),
     lastname: new FormControl('', [
       Validators.required,
@@ -41,20 +43,40 @@ export class HeaderComponent implements OnInit{
       Validators.required,
       Validators.maxLength(250),
       Validators.minLength(5)
-    ])
+    ]),
+    username: new FormControl(this.username)
   })
 
   getHeader() {
     this.headerService.getHeader(this.username)
-      .subscribe((data : any) => {this.user = data});
+      .subscribe((data : any) => {this.formHeader.patchValue(data); console.log(this.formHeader)});
       //console.log(this.header)
+  }
+
+  saveName(){
+    const formCopy = {...this.formHeader.value};
+    this.headerService.updateHeaderName(formCopy)
+    .subscribe((data : any) => {this.displayStyle = "block";
+     })
+    ;
+  }
+
+  saveDegree(){
+    const formCopy = {...this.formHeader.value};
+    this.headerService.updateHeaderDegree(formCopy)
+    .subscribe((data : any) => {this.displayStyle = "block";
+     })
+    ;
+  }
+
+
+  closePopUp(){
+    this.displayStyle = "none"; 
   }
 
   ngOnInit(){
     this.isLoggedIn= isLoggedIn(this.username);
-    console.log(this.username);
     this.getHeader();
-    //console.log(this.first_name)
   }
  
 

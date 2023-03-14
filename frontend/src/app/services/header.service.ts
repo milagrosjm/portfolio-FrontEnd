@@ -18,5 +18,13 @@ export class HeaderService {
 
   }
 
+  updateHeaderName(formCopy: any){
+    return this.http.post<any>(this.headerUrl+"update/headerName", formCopy);
+  }
+
+  updateHeaderDegree(formCopy: any){
+    return this.http.post<any>(this.headerUrl+"update/headerDegree", formCopy);
+  }
+
   
 }

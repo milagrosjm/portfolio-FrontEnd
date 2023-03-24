@@ -12,16 +12,16 @@
                     onChange={changeHandler}
                     required
                     formControlName="username"
-                    [ngClass]="{'is-invalid': (formLogin.controls['username'].touched)  
+                    [ngClass]="{'is-invalid': (formLogin.controls['username'].touched || this.submitted)  
                     && formLogin.controls['username'].errors}"
                     />
                 </div>
-                <div class="validation" *ngIf="(formLogin.controls['username'].touched ) 
+                <div class="validation" *ngIf="(formLogin.controls['username'].touched || this.submitted) 
                     && formLogin.controls['username'].hasError('required')">
                     Dato requerido.
                 </div>
                 <div class="validation"
-                    *ngIf="(formLogin.controls['username'].touched ) 
+                    *ngIf="(formLogin.controls['username'].touched || this.submitted) 
                     && (formLogin.controls['username'].hasError('minlength') || formLogin.controls['username'].hasError('maxlength')) ">
                     Dato texto, 4 a 50 caracteres.
                 </div>
@@ -34,16 +34,16 @@
                     onChange={changeHandler}
                     required
                     formControlName="password"
-                    [ngClass]="{'is-invalid': (formLogin.controls['password'].touched)  
+                    [ngClass]="{'is-invalid': (formLogin.controls['password'].touched || this.submitted)  
                     && formLogin.controls['password'].errors}"
                     />
                 </div>
-                <div class="validation" *ngIf="(formLogin.controls['password'].touched ) 
+                <div class="validation" *ngIf="(formLogin.controls['password'].touched || this.submitted) 
                     && formLogin.controls['password'].hasError('required')">
                     Dato requerido.
                 </div>
                 <div class="validation"
-                    *ngIf="(formLogin.controls['password'].touched ) 
+                    *ngIf="(formLogin.controls['password'].touched || this.submitted) 
                     && (formLogin.controls['password'].hasError('minlength') || formLogin.controls['password'].hasError('maxlength')) ">
                     Dato texto, 4 a 50 caracteres.
                 </div>
@@ -67,11 +67,14 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
-                                
                             </div>
                         </div>
                     </div>
 
+                </div>
+
+                <div *ngIf="submitted && formLogin.invalid" class="alert alert-danger mt-2" role="alert">
+                    <i class="fa fa-solid fa-exclamation"></i> &nbsp;&nbsp;Revisar los datos ingresados 
                 </div>
             </div>
         </form>

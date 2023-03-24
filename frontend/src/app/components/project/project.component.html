@@ -1,21 +1,214 @@
 <section class="projects-conteiner">
-    <div class="section-tittle">
-        Proyectos
-    </div>
-    <div class="projects-table">
-            <div class="row">
-                <div class="col-sm-4 project-item" *ngFor="let p of projectsList">
-                    <div class="card text-white bg-dark mb-3" style="width: 20rem;" >
-                        <img class="card-img-top" src={{p.photo}} alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">{{p.tittle}}</h5>
-                            <p class="card-text">{{p.description}}</p>
-                            <a href={{p.link_deploy}} target="_blanck" *ngIf="p.link_deploy != null "><i class="fa fa-sharp fa-regular fa-rocket fa-2x"></i></a>
-                            <a href={{p.link_github}} target="_blank"><i class="fa fa-brands fa-github fa-2x"></i></a>
+    <div class="projects-table" data-aos="fade-up">
+        <div class="section-tittle">
+            Proyectos
+        </div>
+        <div class="row mb-2" *ngIf="isLoggedIn">
+            <div class="col-12 text-end">
+                <i class="fa fa-solid fa-plus fa-2x" (click)="add()"></i>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 project-item" *ngFor="let p of projectsList" data-aos="fade-right">
+                <div class="card text-white bg-dark mb-3" style="width: 20rem;" >
+                    <div class="row mb-2" *ngIf="isLoggedIn">
+                        <div class="col-9 text-end">
+                            <br>
+                            <i class="fa fa-regular fa-ban fa-2x" (click)="deleteCheck(p)"></i>
+                            <br>
+                        </div>
+                        <div class="col-3">
+                            <br>
+                            <i class="fa fa-solid fa-pencil fa-2x" (click)="edit(p)"></i>
+                            <br>
+                        </div>
+                    </div> 
+                    <img class="card-img-top" src={{p.photo}} alt="Card image cap">
+                    <div class="card-body">
+                        <span class="hidden"> < </span>
+                            <span class="card-tittle">{{p.tittle}}</span>
+                            <span class="hidden"> /> </span>
+                        <div>
+                            
+                        </div>
+                        
+                        <p class="card-text">{{p.description}}</p>
+                        <a href={{p.link_deploy}} target="_blanck" *ngIf="p.link_deploy != null "><i class="fa fa-sharp fa-regular fa-rocket fa-2x"></i></a>
+                        <a href={{p.link_github}} target="_blank"><i class="fa fa-brands fa-github fa-2x"></i></a>
+                    </div>
+                    
+                </div>
+                
+            </div>    <br/><br/>
+           
+        </div>
+        
+        
+        <div class="modal"
+                tabindex="-1"
+                role="dialog"
+                [ngStyle]="{'display':displayStyleForm}">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">{{this.action}}</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closePopUp()"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form name="formProject" [formGroup]='formProject'>
+                                    <div class="row">
+                                        <label class="col-form-label text-start"><strong>Nombre</strong></label>
+                                    </div>
+                                    <div class="row row-bottom-margin">
+                                        <div class="col-12">
+                                            <input type="text" formControlName="tittle" class="form-control mt-1 bg-transparent header-tittle"
+                                            [ngClass]="{'is-invalid': (formProject.controls['tittle'].touched || this.submitted)  
+                                            && formProject.controls['tittle'].errors}">
+                                            <div class="validation" *ngIf="(formProject.controls['tittle'].touched || this.submitted) 
+                                            && formProject.controls['tittle'].hasError('required')">
+                                            Dato requerido.
+                                            </div>
+                                            <div class="validation"
+                                                *ngIf="(formProject.controls['tittle'].touched || this.submitted ) 
+                                                && (formProject.controls['tittle'].hasError('minlength') || formProject.controls['tittle'].hasError('maxlength')) ">
+                                                El dato debe tener de 5 a 40 caracteres.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <label class="col-form-label text-start"><strong>Link de la foto</strong></label>
+                                    </div>
+                                    <div class="row row-bottom-margin">
+                                        <div class="col-12">
+                                            <input type="text" formControlName="photo" class="form-control mt-1 bg-transparent header-tittle"
+                                            [ngClass]="{'is-invalid': (formProject.controls['photo'].touched || this.submitted)  
+                                            && formProject.controls['photo'].errors}">
+                                            <div class="validation" *ngIf="(formProject.controls['photo'].touched || this.submitted) 
+                                            && formProject.controls['photo'].hasError('required')">
+                                            Dato requerido.
+                                            </div>
+                                            <div class="validation"
+                                                *ngIf="(formProject.controls['photo'].touched || this.submitted) 
+                                                && (formProject.controls['photo'].hasError('minlength') || formProject.controls['photo'].hasError('maxlength')) ">
+                                                El dato debe tener de 5 a 250 caracteres.
+                                            </div>
+                                        </div>
+                                       
+
+                                    <div class="row">
+                                        <label class="col-form-label text-start"><strong>Descripcion</strong></label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <textarea type="text" formControlName="description" class="form-control mt-1 bg-transparent header-tittle"
+                                            [ngClass]="{'is-invalid': (formProject.controls['description'].touched || this.submitted)  
+                                            && formProject.controls['description'].errors}"></textarea>
+                                            <div class="validation" *ngIf="(formProject.controls['description'].touched || this.submitted) 
+                                            && formProject.controls['description'].hasError('required')">
+                                            Dato requerido.
+                                            </div>
+                                            <div class="validation"
+                                                *ngIf="(formProject.controls['description'].touched || this.submitted) 
+                                                && (formProject.controls['description'].hasError('minlength') || formProject.controls['description'].hasError('maxlength')) ">
+                                                El dato debe tener de 5 a 250 caracteres.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <label class="col-form-label text-start"><strong>Link del Deploy</strong></label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <input type="text" formControlName="link_deploy" class="form-control mt-1 bg-transparent header-tittle"
+                                            [ngClass]="{'is-invalid': (formProject.controls['link_deploy'].touched || this.submitted)  
+                                            && formProject.controls['link_deploy'].errors}">
+                                            <div class="validation"
+                                                *ngIf="(formProject.controls['link_deploy'].touched || this.submitted) 
+                                                && (formProject.controls['link_deploy'].hasError('minlength') || formProject.controls['link_deploy'].hasError('maxlength')) ">
+                                                El dato debe tener de 5 a 250 caracteres.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <label class="col-form-label text-start"><strong>Link del Repositorio</strong></label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <input type="text" formControlName="link_github" class="form-control mt-1 bg-transparent header-tittle"
+                                            [ngClass]="{'is-invalid': (formProject.controls['link_github'].touched || this.submitted)  
+                                            && formProject.controls['link_github'].errors}">
+                                            <div class="validation" *ngIf="(formProject.controls['link_github'].touched || this.submitted) 
+                                            && formProject.controls['link_github'].hasError('required')">
+                                            Dato requerido.
+                                            </div>
+                                            <div class="validation"
+                                                *ngIf="(formProject.controls['link_github'].touched || this.submitted) 
+                                                && (formProject.controls['link_github'].hasError('minlength') || formProject.controls['link_github'].hasError('maxlength')) ">
+                                                El dato debe tener de 5 a 250 caracteres.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="submitted && formProject.invalid" class="alert alert-danger mt-2" role="alert">
+                                        <i class="fa fa-solid fa-exclamation"></i> &nbsp;&nbsp;Revisar los datos ingresados 
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="save()">Guardar</button>
+                            </div>
                         </div>
                     </div>
-                </div>    <br/><br/>
-            </div> 
+        </div>
+
+        <div class="modal"
+                tabindex="-1"
+                role="dialog"
+                [ngStyle]="{'display':displayStyleCheck}">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">VALIDACIÓN</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closePopUp()"></button>
+                            </div>
+                            <div class="modal-body">
+                                ¿Esta seguro de que quiere eliminar el proyecto?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="delete(projDelete)">Confirmar</button>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+
+        <div class="modal"
+        tabindex="-1"
+        role="dialog"
+        [ngStyle]="{'display':displayStyleMsg}">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">{{this.action}}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closePopUp()"></button>
+                    </div>
+                    <div class="modal-body">
+                        La operacion fue realizada correctamente. 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
     </div>
+
 </section>
 

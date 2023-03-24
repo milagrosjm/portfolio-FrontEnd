@@ -15,7 +15,10 @@ export class AboutMeComponent implements OnInit {
   username : String = this.route.snapshot.paramMap.get('username')!; 
   user!: User; //no lo uso
   isLoggedIn: boolean = isLoggedIn(this.username);
+  submitted = false;
+  
   displayStyle = "none";
+  displayStyleForm = "none";
 
   formAboutMe = new FormGroup({
     about_me: new FormControl('', [
@@ -24,35 +27,49 @@ export class AboutMeComponent implements OnInit {
       Validators.minLength(5)
       
     ]),
-    username: new FormControl(this.username)
+    username: new FormControl(this.username),
+    photo: new FormControl('', [
+      Validators.required,
+    ]),
   })
 
   constructor(private service: AboutMeService, private route : ActivatedRoute){
-    this.getAboutMeText();
+    this.getAboutMe();
 
   }
 
-  getAboutMeText() {
+  getAboutMe() {
     this.service.getAboutMeText(this.username)
       .subscribe((data : any) => {this.formAboutMe.patchValue(data); console.log(this.formAboutMe)})
       ;
   }
 
   save(){
+    this.submitted = true;
+    if (this.formAboutMe.invalid){
+      return;
+    }
+    
     const formCopy = {...this.formAboutMe.value};
     this.service.updateAboutMe(formCopy)
-    .subscribe((data : any) => {this.displayStyle = "block";
+    .subscribe((data : any) => {this.displayStyleForm = "none";this.displayStyle = "block";
      })
     ;
   }
 
-  closePopUp(){
-    this.displayStyle = "none"; 
+  edit(){
+    this.service.getAboutMeText(this.username).subscribe((data: any) => {this.formAboutMe.patchValue(data); this.displayStyleForm= "block"})
   }
+
+  closePopUp(){
+    this.displayStyleForm = "none"; 
+    this.displayStyle = "none"
+  }
+
 
   ngOnInit(){
     this.isLoggedIn= isLoggedIn(this.username);
-    this.getAboutMeText();
+    this.getAboutMe();
   }
 
 }

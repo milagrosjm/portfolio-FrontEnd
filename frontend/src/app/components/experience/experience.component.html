@@ -1,8 +1,8 @@
 <section class="experience-conteiner">
-    <div class="section-tittle">
-        Experiencia
-    </div>
-    <div class="experience-table">
+    <div class="experience-table" data-aos="fade-up">
+        <div class="section-tittle">
+            Experiencia
+        </div>
         <div class="row mb-2" *ngIf="isLoggedIn">
             <div class="col-12 text-end">
                 <i class="fa fa-solid fa-plus fa-2x" (click)="add()"></i>
@@ -20,10 +20,10 @@
                     {{exp.company_name}}
                 </div>
                 <div *ngIf="exp.is_current; else is_not_current" class="col-6 experience-date">
-                    {{exp.start_date}}  - Actualidad
+                    {{exp.start_date}} - Actualidad
                 </div>
                 <ng-template #is_not_current class="col-4 experience-date">
-                    {{exp.start_date}}  - {{exp.end_date}}
+                    &nbsp;&nbsp;{{exp.start_date}}  - {{exp.end_date}}
                 </ng-template>
             </div>
             <div class="row ">
@@ -60,31 +60,31 @@
                                     </div>
                                     <div class="row row-bottom-margin">
                                         <div class="col-6">
-                                            <input type="text" formControlName="role" class="form-control mt-1 bg-transparent header-tittle"
-                                            [ngClass]="{'is-invalid': (formExperience.controls['role'].touched)  
+                                            <input type="text" formControlName="role" class="form-control mt-1 bg-transparent"
+                                            [ngClass]="{'is-invalid': (formExperience.controls['role'].touched || this.submitted)  
                                             && formExperience.controls['role'].errors}">
-                                            <div class="validation" *ngIf="(formExperience.controls['role'].touched ) 
+                                            <div class="validation" *ngIf="(formExperience.controls['role'].touched || this.submitted) 
                                             && formExperience.controls['role'].hasError('required')">
                                             Dato requerido.
                                             </div>
                                             <div class="validation"
-                                                *ngIf="(formExperience.controls['role'].touched ) 
+                                                *ngIf="(formExperience.controls['role'].touched || this.submitted) 
                                                 && (formExperience.controls['role'].hasError('minlength') || formExperience.controls['role'].hasError('maxlength')) ">
                                                 El dato debe tener de 5 a 40 caracteres.
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <input type="text" formControlName="company_name" class="form-control mt-1 bg-transparent header-tittle"
-                                            [ngClass]="{'is-invalid': (formExperience.controls['company_name'].touched)  
+                                            [ngClass]="{'is-invalid': (formExperience.controls['company_name'].touched || this.submitted)  
                                             && formExperience.controls['company_name'].errors}">
-                                            <div class="validation" *ngIf="(formExperience.controls['company_name'].touched ) 
+                                            <div class="validation" *ngIf="(formExperience.controls['company_name'].touched || this.submitted) 
                                             && formExperience.controls['company_name'].hasError('required')">
                                             Dato requerido.
                                             </div>
                                             <div class="validation"
-                                                *ngIf="(formExperience.controls['company_name'].touched ) 
+                                                *ngIf="(formExperience.controls['company_name'].touched || this.submitted) 
                                                 && (formExperience.controls['company_name'].hasError('minlength') || formExperience.controls['company_name'].hasError('maxlength')) ">
-                                                El dato debe tener de 5 a 40 caracteres.
+                                                El dato debe tener de 2 a 40 caracteres.
                                             </div>
                                         </div>
                                     </div>
@@ -96,30 +96,26 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <input type="text" formControlName="start_date" class="form-control mt-1 bg-transparent header-tittle"
-                                            [ngClass]="{'is-invalid': (formExperience.controls['start_date'].touched)  
+                                            [ngClass]="{'is-invalid': (formExperience.controls['start_date'].touched || this.submitted)  
                                             && formExperience.controls['start_date'].errors}">
-                                            <div class="validation" *ngIf="(formExperience.controls['start_date'].touched ) 
+                                            <div class="validation" *ngIf="(formExperience.controls['start_date'].touched || this.submitted) 
                                             && formExperience.controls['start_date'].hasError('required')">
                                             Dato requerido.
                                             </div>
                                             <div class="validation"
-                                                *ngIf="(formExperience.controls['start_date'].touched ) 
+                                                *ngIf="(formExperience.controls['start_date'].touched || this.submitted) 
                                                 && (formExperience.controls['start_date'].hasError('minlength') || formExperience.controls['start_date'].hasError('maxlength')) ">
-                                                El dato debe tener de 5 a 40 caracteres.
+                                                El dato debe tener de 4 a 8 caracteres.
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <input type="text" formControlName="end_date" class="form-control mt-1 bg-transparent header-tittle"
-                                            [ngClass]="{'is-invalid': (formExperience.controls['end_date'].touched)  
+                                            [ngClass]="{'is-invalid': (formExperience.controls['end_date'].touched || this.submitted)  
                                             && formExperience.controls['end_date'].errors}">
-                                            <div class="validation" *ngIf="(formExperience.controls['end_date'].touched ) 
-                                            && formExperience.controls['end_date'].hasError('required')">
-                                            Dato requerido.
-                                            </div>
                                             <div class="validation"
-                                                *ngIf="(formExperience.controls['end_date'].touched ) 
+                                                *ngIf="(formExperience.controls['end_date'].touched || this.submitted) 
                                                 && (formExperience.controls['end_date'].hasError('minlength') || formExperience.controls['end_date'].hasError('maxlength')) ">
-                                                El dato debe tener de 5 a 40 caracteres.
+                                                El dato debe tener de 4 a 8 caracteres.
                                             </div>
                                         </div>
                                     </div>
@@ -137,26 +133,32 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <textarea type="text" formControlName="description" class="form-control mt-1 bg-transparent header-tittle"
-                                            [ngClass]="{'is-invalid': (formExperience.controls['description'].touched)  
+                                            [ngClass]="{'is-invalid': (formExperience.controls['description'].touched|| this.submitted)  
                                             && formExperience.controls['description'].errors}"></textarea>
-                                            <div class="validation" *ngIf="(formExperience.controls['description'].touched ) 
+                                            <div class="validation" *ngIf="(formExperience.controls['description'].touched || this.submitted) 
                                             && formExperience.controls['description'].hasError('required')">
                                             Dato requerido.
                                             </div>
                                             <div class="validation"
-                                                *ngIf="(formExperience.controls['description'].touched ) 
+                                                *ngIf="(formExperience.controls['description'].touched || this.submitted) 
                                                 && (formExperience.controls['description'].hasError('minlength') || formExperience.controls['description'].hasError('maxlength')) ">
-                                                El dato debe tener de 5 a 40 caracteres.
+                                                El dato debe tener de 5 a 150 caracteres.
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <div *ngIf="submitted && formExperience.invalid" class="alert alert-danger mt-2" role="alert">
+                                        <i class="fa fa-solid fa-exclamation"></i> &nbsp;&nbsp;Revisar los datos ingresados 
                                     </div>
 
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="save()">Guardar</button>
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="save()">Guardar</button>
                             </div>
+
+                           
                         </div>
                     </div>
         </div>
@@ -168,15 +170,15 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">VALIDACION</h1>
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">VALIDACIÓN</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closePopUp()"></button>
                             </div>
                             <div class="modal-body">
                                 ¿Esta seguro de que quiere eliminar la experiencia?
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="delete(expDelete)">Confirmar</button>
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="delete(expDelete)">Confirmar</button>
                             </div>
                         </div>
                     </div>
@@ -196,7 +198,7 @@
                         La operacion fue realizada correctamente. 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
                     </div>
                 </div>
             </div>

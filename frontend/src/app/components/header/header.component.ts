@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit{
 
   username: String = this.route.snapshot.paramMap.get('username')!; 
   isLoggedIn: boolean = isLoggedIn(this.username);
+  submitted = false;
 
   formHeader = new FormGroup({
     first_name: new FormControl('', [
@@ -54,6 +55,11 @@ export class HeaderComponent implements OnInit{
   }
 
   saveName(){
+    this.submitted = true;
+    if (this.formHeader.invalid){
+      return;
+    }
+
     const formCopy = {...this.formHeader.value};
     this.headerService.updateHeaderName(formCopy)
     .subscribe((data : any) => {this.displayStyle = "block";

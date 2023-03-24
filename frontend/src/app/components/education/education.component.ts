@@ -29,29 +29,30 @@ export class EducationComponent implements OnInit{
 
   username: String = this.route.snapshot.paramMap.get('username')!; 
   isLoggedIn: boolean = isLoggedIn(this.username);
+  submitted = false;
 
   formEducation = new FormGroup({
     degree: new FormControl('', [
       Validators.required,
-      Validators.maxLength(40),
-      Validators.minLength(4)
+      Validators.maxLength(100),
+      Validators.minLength(5)
     ]),
     institution: new FormControl('', [
       Validators.required,
-      Validators.maxLength(40),
+      Validators.maxLength(100),
       Validators.minLength(5)
     ]),
     end_date: new FormControl('', [
-      Validators.maxLength(250),
+      Validators.minLength(4),
+      Validators.maxLength(8),
     ]),
     username: new FormControl(this.username),
     start_date: new FormControl('', [
       Validators.required,
-      Validators.maxLength(40),
-      Validators.minLength(5)
+      Validators.maxLength(8),
+      Validators.minLength(4)
     ]),
     is_current: new FormControl('', [
-      Validators.required,
     ]),
     id: new FormControl('', []),
   })
@@ -75,22 +76,27 @@ export class EducationComponent implements OnInit{
   }
   
   save(){
+    this.submitted = true;
+    if (this.formEducation.invalid){
+      return;
+    }
+    
     const formCopy = {...this.formEducation.value};
     console.log(formCopy);
     if (!formCopy.id){
       this.action = "AGREGAR"
     }
     else{
-      this.action = "MODIFICACION"
+      this.action = "MODIFICACIÓN"
     }
     this.service.updateEducation(formCopy)
-    .subscribe((data : any) => {this.displayStyleForm = "none";this.displayStyleMsg = "block";
+    .subscribe((data : any) => {this.displayStyleForm = "none";this.displayStyleMsg = "block"; this.getAllEducation(); this.submitted = false;
      })
     ;
   }
 
   add(){
-    this.formEducation.reset(this.formEducation.value); 
+    this.formEducation.reset({username: this.username});
     this.displayStyleForm = "block";
     console.log(this.username)
     console.log(this.formEducation)
@@ -103,7 +109,7 @@ export class EducationComponent implements OnInit{
 
   delete(ed : Education){
     this.service.deleteEducation(ed)
-    .subscribe((data : any) => {this.displayStyleCheck = "none"; this.action = "ELIMINACION"; this.displayStyleMsg = "block";
+    .subscribe((data : any) => {this.displayStyleCheck = "none"; this.action = "ELIMINACIÓN"; this.displayStyleMsg = "block"; this.getAllEducation();
      })
     ;
 

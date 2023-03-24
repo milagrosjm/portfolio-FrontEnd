@@ -1,38 +1,43 @@
 <section class="education-conteiner">
-    <div class="section-tittle">
-        Educación
-    </div>
-    <div class="education-table">
+    <div class="education-table" data-aos="fade-up">
+        <div class="section-tittle">
+            Educación
+        </div>
         <div class="row mb-2" *ngIf="isLoggedIn">
             <div class="col-12 text-end">
                 <i class="fa fa-solid fa-plus fa-2x" (click)="add()"></i>
             </div>
         </div>
-        <div class="education-item" *ngFor="let ed of educationList">
-            <div class="row ">
-                <div class="col-12 education-degree">
-                    {{ed.degree}}
+        <div  *ngFor="let ed of educationList">
+            <div class="education-item">
+                <div class="row ">
+                    <div class="col-8 education-degree">
+                        {{ed.degree}}
+                    </div>
+                    <div class="col-4 education-date" *ngIf="ed.is_current; else is_not_current" >
+                        {{ed.start_date}} - Actualidad
+                    </div>
+                    <ng-template class="col-4 education-date" #is_not_current >
+                        &nbsp;&nbsp;{{ed.start_date}}  - {{ed.end_date}}
+                    </ng-template>
                 </div>
+                <div class="row ">
+                    <div class="col-12 education-institution">
+                        {{ed.institution}}
+                    </div>
+                    
+                </div>
+                <div class="row mb-2" *ngIf="isLoggedIn">
+                    <div class="col-9 text-end">
+                        <i class="fa fa-regular fa-ban fa-2x" (click)="deleteCheck(ed)"></i>
+                    </div>
+                    <div class="col-3">
+                        <i class="fa fa-solid fa-pencil fa-2x" (click)="edit(ed)"></i>
+                    </div>
+                </div> 
+                
             </div>
-            <div class="row ">
-                <div class="col-6 education-institution">
-                    {{ed.institution}}
-                </div>
-                <div *ngIf="ed.is_current; else is_not_current" class="col-6 education-date">
-                    {{ed.start_date}} -  Actualidad
-                </div>
-                <ng-template #is_not_current class="col-4 experience-date">
-                    {{ed.start_date}}  - {{ed.end_date}}
-                </ng-template>
-            </div>
-            <div class="row mb-2" *ngIf="isLoggedIn">
-                <div class="col-9 text-end">
-                    <i class="fa fa-regular fa-ban fa-2x" (click)="deleteCheck(ed)"></i>
-                </div>
-                <div class="col-3">
-                    <i class="fa fa-solid fa-pencil fa-2x" (click)="edit(ed)"></i>
-                </div>
-            </div> 
+            
         </div>
         
 
@@ -55,30 +60,30 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <input type="text" formControlName="degree" class="form-control mt-1 bg-transparent header-tittle"
-                                            [ngClass]="{'is-invalid': (formEducation.controls['degree'].touched)  
+                                            [ngClass]="{'is-invalid': (formEducation.controls['degree'].touched || this.submitted)  
                                             && formEducation.controls['degree'].errors}">
-                                            <div class="validation" *ngIf="(formEducation.controls['degree'].touched ) 
+                                            <div class="validation" *ngIf="(formEducation.controls['degree'].touched || this.submitted) 
                                             && formEducation.controls['degree'].hasError('required')">
                                             Dato requerido.
                                             </div>
                                             <div class="validation"
-                                                *ngIf="(formEducation.controls['degree'].touched ) 
+                                                *ngIf="(formEducation.controls['degree'].touched || this.submitted) 
                                                 && (formEducation.controls['degree'].hasError('minlength') || formEducation.controls['degree'].hasError('maxlength')) ">
-                                                El dato debe tener de 5 a 40 caracteres.
+                                                El dato debe tener de 5 a 100 caracteres.
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <input type="text" formControlName="institution" class="form-control mt-1 bg-transparent header-tittle"
-                                            [ngClass]="{'is-invalid': (formEducation.controls['institution'].touched)  
+                                            [ngClass]="{'is-invalid': (formEducation.controls['institution'].touched || this.submitted)  
                                             && formEducation.controls['institution'].errors}">
-                                            <div class="validation" *ngIf="(formEducation.controls['institution'].touched ) 
+                                            <div class="validation" *ngIf="(formEducation.controls['institution'].touched || this.submitted) 
                                             && formEducation.controls['institution'].hasError('required')">
                                             Dato requerido.
                                             </div>
                                             <div class="validation"
-                                                *ngIf="(formEducation.controls['institution'].touched ) 
+                                                *ngIf="(formEducation.controls['institution'].touched || this.submitted) 
                                                 && (formEducation.controls['institution'].hasError('minlength') || formEducation.controls['institution'].hasError('maxlength')) ">
-                                                El dato debe tener de 5 a 40 caracteres.
+                                                El dato debe tener de 5 a 100 caracteres.
                                             </div>
                                         </div>
                                     </div>
@@ -90,30 +95,30 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <input type="text" formControlName="start_date" class="form-control mt-1 bg-transparent header-tittle"
-                                            [ngClass]="{'is-invalid': (formEducation.controls['start_date'].touched)  
+                                            [ngClass]="{'is-invalid': (formEducation.controls['start_date'].touched || this.submitted)  
                                             && formEducation.controls['start_date'].errors}">
-                                            <div class="validation" *ngIf="(formEducation.controls['start_date'].touched ) 
+                                            <div class="validation" *ngIf="(formEducation.controls['start_date'].touched || this.submitted) 
                                             && formEducation.controls['start_date'].hasError('required')">
                                             Dato requerido.
                                             </div>
                                             <div class="validation"
-                                                *ngIf="(formEducation.controls['start_date'].touched ) 
+                                                *ngIf="(formEducation.controls['start_date'].touched || this.submitted) 
                                                 && (formEducation.controls['start_date'].hasError('minlength') || formEducation.controls['start_date'].hasError('maxlength')) ">
-                                                El dato debe tener de 5 a 40 caracteres.
+                                                El dato debe tener de 4 a 8 caracteres.
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <input type="text" formControlName="end_date" class="form-control mt-1 bg-transparent header-tittle"
-                                            [ngClass]="{'is-invalid': (formEducation.controls['end_date'].touched)  
+                                            [ngClass]="{'is-invalid': (formEducation.controls['end_date'].touched || this.submitted)  
                                             && formEducation.controls['end_date'].errors}">
-                                            <div class="validation" *ngIf="(formEducation.controls['end_date'].touched ) 
+                                            <div class="validation" *ngIf="(formEducation.controls['end_date'].touched || this.submitted) 
                                             && formEducation.controls['end_date'].hasError('required')">
                                             Dato requerido.
                                             </div>
                                             <div class="validation"
-                                                *ngIf="(formEducation.controls['end_date'].touched ) 
+                                                *ngIf="(formEducation.controls['end_date'].touched || this.submitted) 
                                                 && (formEducation.controls['end_date'].hasError('minlength') || formEducation.controls['end_date'].hasError('maxlength')) ">
-                                                El dato debe tener de 5 a 40 caracteres.
+                                                El dato debe tener de 4 a 8 caracteres.
                                             </div>
                                         </div>
                                     </div>
@@ -125,11 +130,15 @@
                                         </div>
                                     </div>
 
+                                    <div *ngIf="submitted && formEducation.invalid" class="alert alert-danger mt-2" role="alert">
+                                        <i class="fa fa-solid fa-exclamation"></i> &nbsp;&nbsp;Revisar los datos ingresados 
+                                    </div>
+
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="save()">Guardar</button>
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="save()">Guardar</button>
                             </div>
                         </div>
                     </div>
@@ -142,15 +151,15 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">VALIDACION</h1>
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">VALIDACIÓN</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closePopUp()"></button>
                             </div>
                             <div class="modal-body">
                                 ¿Esta seguro de que quiere eliminar el item?
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="delete(edDelete)">Confirmar</button>
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="delete(edDelete)">Confirmar</button>
                             </div>
                         </div>
                     </div>
@@ -170,7 +179,7 @@
                         La operacion fue realizada correctamente. 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
                     </div>
                 </div>
             </div>

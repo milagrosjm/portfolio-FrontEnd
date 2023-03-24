@@ -12,8 +12,20 @@ export class SkillService {
   skillUrl = environment.ApiUrl + '/skill/';
 
   getSkillsFromUser(username : any) {
-    this.skillUrl+=username
-    return this.http.get<any>(this.skillUrl);
+    return this.http.get<any>(this.skillUrl+username);
 
+  }
+
+  getSkillDetail(id: number){
+    return this.http.get<any>(this.skillUrl+"detail/"+id)
+  }
+
+  updateSkill(sk : any){
+      return this.http.post<any>(this.skillUrl+"update", sk);
+
+  }
+
+  deleteSkill(sk : any){
+    return this.http.delete<any>(this.skillUrl+"delete/"+sk.id);
   }
 }

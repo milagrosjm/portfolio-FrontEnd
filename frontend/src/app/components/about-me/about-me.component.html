@@ -1,24 +1,27 @@
-<section class="aboutMe-conteiner">
-    <div class="section-tittle">
-            Sobre Mi
-    </div>
+<section class="aboutMe-conteiner" >
     <div class="aboutMe-table">
-        <div class="aboutMe-show" *ngIf="!isLoggedIn; else is_loggedInTrue">
+        <div class="aboutMe-show" *ngIf="!isLoggedIn; else is_loggedInTrue" data-aos="fade-up">
+            <div class="section-tittle">
+                Sobre Mi
+            </div>
             <div class="row">
                 <div class="col-9 aboutMe-text">
                     {{formAboutMe.value.about_me}}
                 </div>
                 <div class="col-md-3 mb-2">
-                    <img class="aboutMe-photo" alt="Avatar">
+                    <img class="aboutMe-photo" src={{formAboutMe.value.photo}} alt="Avatar">
                 </div>
             </div>
         </div>
         <div class="aboutMe-edit">
             <ng-template #is_loggedInTrue class="aboutMe-edit" >
+                <div class="section-tittle">
+                    Sobre Mi
+                </div>
                 <form name="formAboutMe" [formGroup]='formAboutMe'>
-                    <div class="row mb-2">
-                        <div class="col-9">
-                            <textarea type="text" name="aboutMe" formControlName="about_me" class="form-control mt-1 bg-transparent"
+                    <div class="row">
+                        <div class="col-6">
+                            <textarea type="text" name="aboutMe" placeholder="Sobre mi" formControlName="about_me" class="form-control mt-5 bg-transparent aboutme-input"
                             [ngClass]="{'is-invalid': (formAboutMe.controls['about_me'].touched)  
                             && formAboutMe.controls['about_me'].errors}"></textarea>
                             <div class="validation" *ngIf="(formAboutMe.controls['about_me'].touched ) 
@@ -31,12 +34,64 @@
                                 El dato debe tener de 5 a 250 caracteres.
                             </div>
                         </div>
-                        <div class="col-3">
+                    </div>
+                    <diV class="row">
+                        <div class="col-7 text-end">
                             <i class="fa fa-solid fa-check fa-2x" (click)="save()"></i>
                         </div>
+                    </diV>
+                    <diV class="row">
+                        <div class="col-10 text-end">
+                            <img class="aboutMe-photo" src={{formAboutMe.value.photo}} alt="Avatar">
+                        </div>
+                    </diV>
+                    <div class="row">
+                        <div class="col-10 text-end">
+                            <i class="fa fa-solid fa-pencil fa-2x" (click)="edit()"></i>
+                        </div>
+                    </div>
+
+                    <div *ngIf="submitted && formAboutMe.invalid" class="alert alert-danger mt-2" role="alert">
+                        <i class="fa fa-solid fa-exclamation"></i> &nbsp;&nbsp;Revisar los datos ingresados. 
                     </div>
                 </form>
             </ng-template>
+        </div>
+
+        <div class="modal"
+                tabindex="-1"
+                role="dialog"
+                [ngStyle]="{'display':displayStyleForm}">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">EDITAR</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closePopUp()"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form name="formHeader" [formGroup]='formAboutMe'>
+                                    <div class="row">
+                                        <label class="col-6 col-form-label"><strong>Link de la imagen</strong></label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <input type="text" formControlName="photo" class="form-control mt-1 bg-transparent link-input"
+                                            [ngClass]="{'is-invalid': (formAboutMe.controls['photo'].touched)  
+                                            && formAboutMe.controls['photo'].errors}">
+                                            <div class="validation" *ngIf="(formAboutMe.controls['photo'].touched ) 
+                                            && formAboutMe.controls['photo'].hasError('required')">
+                                            Dato requerido.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="save()">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
         </div>
 
         <div class="modal"
@@ -53,7 +108,7 @@
                                 Los datos fueron modificados correctamente. 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
                                 
                             </div>
                         </div>

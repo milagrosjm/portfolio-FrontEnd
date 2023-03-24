@@ -1,11 +1,12 @@
 .header-conteiner{
-    background-image: url("../../../assets/background/1.png");
-    color: black;
-    height: 100%;
-    display: block;
-    min-height:100%;
-    width:100%;
+    background: #001524;
+    color: white;
+   
     padding-right: 10px;
+    height: 100%;
+    width: 100%;
+    display: block;
+    box-sizing:border-box;
 }
 
 .header-table{
@@ -36,4 +37,29 @@
     margin-bottom: 0;
     padding-bottom: 0;
     line-height: 1;
+}
+
+.form-control{
+    color:rgb(190,190, 190)
+}
+
+@keyframes float {
+    0% {
+      
+      transform: translatey(0px);
+    }
+    50% {
+      
+      transform: translatey(-20px);
+    }
+    100% {
+      
+      transform: translatey(0px);
+    }
+  }
+
+
+  .header-tittle{
+    animation: float 6s ease-in-out infinite;
+
 }

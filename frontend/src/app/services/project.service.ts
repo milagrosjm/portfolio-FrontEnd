@@ -12,8 +12,23 @@ export class ProjectService {
   projectUrl = environment.ApiUrl + '/project/';
 
   getAllProjectsFromUser(username : any) {
-    this.projectUrl+=username
-    return this.http.get<any>(this.projectUrl);
+    return this.http.get<any>(this.projectUrl+username);
+  }
+
+  getProjectDetail(id: number){
+    return this.http.get<any>(this.projectUrl+"detail/"+id)
+  }
+
+  updateProject(pr : any){
+      return this.http.post<any>(this.projectUrl+"update", pr);
 
   }
+
+  deleteProject(pr : any){
+    return this.http.delete<any>(this.projectUrl+"delete/"+pr.id);
+
+}
+
+  
+
 }

@@ -29,29 +29,30 @@ export class ExperienceComponent implements OnInit{
 
   username: String = this.route.snapshot.paramMap.get('username')!; 
   isLoggedIn: boolean = isLoggedIn(this.username);
+  submitted = false;
 
   formExperience = new FormGroup({
     company_name: new FormControl('', [
       Validators.required,
       Validators.maxLength(40),
-      Validators.minLength(3)
+      Validators.minLength(2)
     ]),
     description: new FormControl('', [
       Validators.required,
-      Validators.maxLength(40),
+      Validators.maxLength(150),
       Validators.minLength(5)
     ]),
     end_date: new FormControl('', [
-      Validators.maxLength(250),
+      Validators.minLength(4),
+      Validators.maxLength(8),
     ]),
     username: new FormControl(this.username),
     start_date: new FormControl('', [
       Validators.required,
-      Validators.maxLength(40),
-      Validators.minLength(5)
+      Validators.maxLength(8),
+      Validators.minLength(4)
     ]),
     is_current: new FormControl('', [
-      Validators.required,
     ]),
     role: new FormControl('', [
       Validators.required,
@@ -64,7 +65,7 @@ export class ExperienceComponent implements OnInit{
 
   getAllExperience() {
     this.service.getAllExperienceFromUser(this.username)
-      .subscribe((data : Experience[]) => {this.experienceList = data; console.log(this.experienceList)})
+      .subscribe((data : Experience[]) => {this.experienceList = data;})
       ;
   }
 
@@ -81,22 +82,29 @@ export class ExperienceComponent implements OnInit{
   }
   
   save(){
+    this.submitted = true;
+
+    if (this.formExperience.invalid){
+      return;
+    }
+    
     const formCopy = {...this.formExperience.value};
     console.log(formCopy);
     if (!formCopy.id){
       this.action = "AGREGAR"
     }
     else{
-      this.action = "MODIFICACION"
+      this.action = "MODIFICACIÓN"
     }
     this.service.updateExperience(formCopy)
-    .subscribe((data : any) => {this.displayStyleForm = "none";this.displayStyleMsg = "block";
+    .subscribe((data : any) => {this.displayStyleForm = "none";this.displayStyleMsg = "block"; this.getAllExperience();
      })
     ;
+    
   }
 
   add(){
-    this.formExperience.reset(this.formExperience.value); 
+    this.formExperience.reset({username: this.username});
     this.displayStyleForm = "block";
   }
 
@@ -107,7 +115,7 @@ export class ExperienceComponent implements OnInit{
 
   delete(exp : Experience){
     this.service.deleteExperience(exp)
-    .subscribe((data : any) => {this.displayStyleCheck = "none"; this.action = "ELIMINACION"; this.displayStyleMsg = "block";
+    .subscribe((data : any) => {this.displayStyleCheck = "none"; this.action = "ELIMINACIÓN"; this.displayStyleMsg = "block"; this.getAllExperience();
      })
     ;
 

@@ -1,12 +1,137 @@
 <section class="skills-conteiner">
-    <div class="section-tittle">
-        Habilidades
-    </div>
-    <div class="skill-table">
+    <div class="skill-table" data-aos="fade-up">
+        <div class="section-tittle">
+            Habilidades
+        </div>
+        <div class="row mb-2" *ngIf="isLoggedIn">
+            <div class="col-12 text-end">
+                <i class="fa fa-solid fa-plus fa-2x" (click)="add()"></i>
+            </div>
+        </div>
         <div>
             <div class="row ">
-                <div class="col-3 skill-item" *ngFor="let s of skillList">
-                    <img class="skill-icon" src={{s.icon}} alt="Skill">
+                <div class="col-3 skill" *ngFor="let s of skillList" data-aos="fade-right">
+                    <div class="skill-item">
+                        <img class="skill-icon text-center" src={{s.icon}} alt="Skill">
+                        <h5 class="text-center">{{s.name}}</h5>
+                        
+                    </div>
+                    
+
+                    <div class="row mb-2" *ngIf="isLoggedIn">
+                        <div class="col-9 text-end">
+                            <i class="fa fa-regular fa-ban fa-2x" (click)="deleteCheck(s)"></i>
+                        </div>
+                        <div class="col-3">
+                            <i class="fa fa-solid fa-pencil fa-2x" (click)="edit(s)"></i>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+
+        <div class="modal"
+                tabindex="-1"
+                role="dialog"
+                [ngStyle]="{'display':displayStyleForm}">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">{{this.action}}</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closePopUp()"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form name="formSkill" [formGroup]='formSkill'>
+                                    <div class="row">
+                                        <label class="col-form-label text-start"><strong>Nombre</strong></label>
+                                    </div>
+                                    <div class="row row-bottom-margin">
+                                        <div class="col-12">
+                                            <input type="text" formControlName="name" class="form-control mt-1 bg-transparent header-tittle"
+                                            [ngClass]="{'is-invalid': (formSkill.controls['name'].touched || this.submitted)  
+                                            && formSkill.controls['name'].errors}">
+                                            <div class="validation" *ngIf="(formSkill.controls['name'].touched || this.submitted) 
+                                            && formSkill.controls['name'].hasError('required')">
+                                            Dato requerido.
+                                            </div>
+                                            <div class="validation"
+                                                *ngIf="(formSkill.controls['name'].touched || this.submitted) 
+                                                && (formSkill.controls['name'].hasError('minlength') || formSkill.controls['name'].hasError('maxlength')) ">
+                                                El dato debe tener de 2 a 40 caracteres.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <label class="col-form-label text-start"><strong>Link del icon</strong></label>
+                                    </div>
+                                    <div class="row row-bottom-margin">
+                                        <div class="col-12">
+                                            <input type="text" formControlName="icon" class="form-control mt-1 bg-transparent header-tittle"
+                                            [ngClass]="{'is-invalid': (formSkill.controls['icon'].touched || this.submitted)  
+                                            && formSkill.controls['icon'].errors}">
+                                            <div class="validation" *ngIf="(formSkill.controls['icon'].touched || this.submitted ) 
+                                            && formSkill.controls['icon'].hasError('required')">
+                                            Dato requerido.
+                                            </div>
+                                            <div class="validation"
+                                                *ngIf="(formSkill.controls['icon'].touched || this.submitted) 
+                                                && (formSkill.controls['icon'].hasError('minlength') || formSkill.controls['icon'].hasError('maxlength')) ">
+                                                El dato debe tener de 5 a 250 caracteres.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="submitted && formSkill.invalid" class="alert alert-danger mt-2" role="alert">
+                                        <i class="fa fa-solid fa-exclamation"></i> &nbsp;&nbsp;Revisar los datos ingresados 
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="save()">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+
+        <div class="modal"
+                tabindex="-1"
+                role="dialog"
+                [ngStyle]="{'display':displayStyleCheck}">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">VALIDACIÓN</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closePopUp()"></button>
+                            </div>
+                            <div class="modal-body">
+                                ¿Esta seguro de que quiere eliminar la habilidad?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="delete(skillDelete)">Confirmar</button>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+
+        <div class="modal"
+        tabindex="-1"
+        role="dialog"
+        [ngStyle]="{'display':displayStyleMsg}">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">{{this.action}}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closePopUp()"></button>
+                    </div>
+                    <div class="modal-body">
+                        La operacion fue realizada correctamente. 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
+                    </div>
                 </div>
             </div>
         </div>

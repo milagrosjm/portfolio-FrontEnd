@@ -31,11 +31,18 @@ export class LoginComponent {
     private portfolio: PortfolioComponent){
 
   }
-
+  submitted = false;
   auth : boolean = false;
   displayStyle = "none";
 
   Login(){
+
+    this.submitted = true;
+    
+    if (this.formLogin.invalid){
+      return;
+    }
+    
     const formCopy = {...this.formLogin.value}
 
     this.service.getUser(formCopy)

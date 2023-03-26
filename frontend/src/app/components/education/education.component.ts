@@ -71,7 +71,7 @@ export class EducationComponent implements OnInit{
 
 
   edit(ed: Education){
-    this.service.getEducationDetail(ed.id).subscribe((data: any) => {this.formEducation.patchValue(data); this.displayStyleForm= "block"})
+    this.service.getEducationDetail(ed.id).subscribe((data: any) => {this.formEducation.patchValue(data); this.displayStyleForm= "block"; this.action = "EDITAR"})
 
   }
   
@@ -98,8 +98,7 @@ export class EducationComponent implements OnInit{
   add(){
     this.formEducation.reset({username: this.username});
     this.displayStyleForm = "block";
-    console.log(this.username)
-    console.log(this.formEducation)
+    this.action = "AGREGAR";
   }
 
   deleteCheck(ed : Education){

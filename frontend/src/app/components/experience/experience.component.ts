@@ -77,7 +77,7 @@ export class ExperienceComponent implements OnInit{
 
 
   edit(exp: Experience){
-    this.service.getExperienceDetail(exp.id).subscribe((data: any) => {this.formExperience.patchValue(data); this.displayStyleForm= "block"})
+    this.service.getExperienceDetail(exp.id).subscribe((data: any) => {this.formExperience.patchValue(data); this.displayStyleForm= "block"; this.action = "EDITAR"})
 
   }
   
@@ -106,6 +106,7 @@ export class ExperienceComponent implements OnInit{
   add(){
     this.formExperience.reset({username: this.username});
     this.displayStyleForm = "block";
+    this.action = "AGREGAR";
   }
 
   deleteCheck(exp : Experience){

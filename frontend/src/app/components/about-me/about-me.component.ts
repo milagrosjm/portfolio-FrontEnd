@@ -57,9 +57,15 @@ export class AboutMeComponent implements OnInit {
     ;
   }
 
+  uploadImage($event : any){
+    console.log($event.target.value)
+  }
+
   edit(){
     this.service.getAboutMeText(this.username).subscribe((data: any) => {this.formAboutMe.patchValue(data); this.displayStyleForm= "block"})
   }
+
+ 
 
   closePopUp(){
     this.displayStyleForm = "none"; 

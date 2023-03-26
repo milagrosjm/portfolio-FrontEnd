@@ -9,9 +9,13 @@
 
 }
 
+.fa{
+  cursor: pointer;
+}
+
 html,
 body {
-
+  
 }
 
 section {

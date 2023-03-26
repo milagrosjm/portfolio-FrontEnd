@@ -73,7 +73,7 @@ export class ProjectComponent implements OnInit{
 
 
   edit(proj: Project){
-    this.service.getProjectDetail(proj.id).subscribe((data: any) => {this.formProject.patchValue(data); this.displayStyleForm= "block"})
+    this.service.getProjectDetail(proj.id).subscribe((data: any) => {this.formProject.patchValue(data); this.displayStyleForm= "block"; this.action = "EDITAR"})
 
   }
   

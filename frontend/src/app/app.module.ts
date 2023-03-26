@@ -17,6 +17,10 @@ import { FrontPageComponent } from './components/front-page/front-page.component
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { RouterModule } from '@angular/router';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +33,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PortfolioComponent,
     LoginComponent,
     FrontPageComponent,
-    
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    
   ],
   providers: [PortfolioComponent],
   bootstrap: [AppComponent]

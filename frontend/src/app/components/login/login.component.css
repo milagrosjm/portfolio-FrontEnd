@@ -21,7 +21,7 @@
 .Login-header {
     background-color: #282c34;
     background-repeat: round;
-    background-image: url(../../../assets/background/3.png);
+    background-color: #012945;
     background-size: cover;
     min-height: 100vh;
     display: flex;

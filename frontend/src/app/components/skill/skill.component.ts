@@ -62,7 +62,7 @@ export class SkillComponent implements OnInit{
 
 
   edit(sk: Skill){
-    this.service.getSkillDetail(sk.id).subscribe((data: any) => {this.formSkill.patchValue(data); this.displayStyleForm= "block"})
+    this.service.getSkillDetail(sk.id).subscribe((data: any) => {this.formSkill.patchValue(data); this.displayStyleForm= "block" ; this.action = "EDITAR"})
 
   }
   

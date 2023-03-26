@@ -26,7 +26,7 @@
                 <form name="formHeader" [formGroup]='formHeader'>
                     <div class="row ">
                         <div class="col-6 ">
-                            <input type="text" formControlName="first_name" placeholder="Primer nombre" class="form-control mt-1 bg-transparent header-tittle"
+                            <input type="text" formControlName="first_name" placeholder="Primer nombre" class="form-control mt-1 bg-transparent "
                                 [ngClass]="{'is-invalid': (formHeader.controls['first_name'].touched || this.submitted)  
                                 && formHeader.controls['first_name'].errors}">
                             <div class="validation" *ngIf="(formHeader.controls['first_name'].touched || this.submitted) 
@@ -42,7 +42,7 @@
                     </div>
                     <div class="row ">
                         <div class="col-6 ">
-                            <input type="text" formControlName="second_name" placeholder="Segundo nombre" class="form-control mt-1 bg-transparent header-tittle"
+                            <input type="text" formControlName="second_name" placeholder="Segundo nombre" class="form-control mt-1 bg-transparent "
                             [ngClass]="{'is-invalid': (formHeader.controls['second_name'].touched || this.submitted)  
                             && formHeader.controls['second_name'].errors}">
                             <div class="validation"
@@ -54,7 +54,7 @@
                     </div>
                     <div class="row ">
                         <div class="col-6 ">
-                            <input type="text" formControlName="lastname" placeholder="Apellido" class="form-control mt-1 bg-transparent header-tittle"
+                            <input type="text" formControlName="lastname" placeholder="Apellido" class="form-control mt-1 bg-transparent "
                             [ngClass]="{'is-invalid': (formHeader.controls['lastname'].touched || this.submitted)  
                             && formHeader.controls['lastname'].errors}">
                             <div class="validation" *ngIf="(formHeader.controls['lastname'].touched || this.submitted) 
@@ -117,7 +117,7 @@
                                 Los datos fueron modificados correctamente. 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="closePopUp()">Cerrar</button>
                                 
                             </div>
                         </div>

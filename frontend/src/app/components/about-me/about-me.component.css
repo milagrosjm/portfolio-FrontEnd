@@ -9,15 +9,26 @@
 }
 
 .aboutMe-photo {
-    border-radius: 60%;
-    height: 10rem;
-    width: 10rem;
+    border-radius: 999px;
+    height: 12rem;
+    width: 12rem;
+    position: relative;
+    box-shadow: 13px 13px rgba(215, 214, 214, 0.1);
+    transition: all .4s ease;
 }
+.aboutMe-photo:hover {
+    border-radius: 0% 0% 50% 50% / 0% 0% 5% 5% ;
+    box-shadow: 10px 10px rgba(215,214,214,.10);
+  }
+
+
 
 .aboutMe-table{
-    padding: 3rem 3rem 3rem 3rem;
+    padding: 8rem 3rem 3rem 3rem;
     font-family: Raleway;
 }
+
+
 
 .aboutMe-text{
     padding-left: 8rem;

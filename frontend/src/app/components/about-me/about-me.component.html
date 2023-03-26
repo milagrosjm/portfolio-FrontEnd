@@ -84,6 +84,21 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="row">
+                                        <label class="col-6 col-form-label"><strong>Link de la imagen</strong></label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <input type="file" formControlName="" class="form-control" id="img" name="img" accept=".jpg, .jpeg, .png" (change)="uploadImage($event)"
+                                            [ngClass]="{'is-invalid': (formAboutMe.controls['photo'].touched)  
+                                            && formAboutMe.controls['photo'].errors}">
+                                            <div class="validation" *ngIf="(formAboutMe.controls['photo'].touched ) 
+                                            && formAboutMe.controls['photo'].hasError('required')">
+                                            Dato requerido.
+                                            </div>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                             <div class="modal-footer">

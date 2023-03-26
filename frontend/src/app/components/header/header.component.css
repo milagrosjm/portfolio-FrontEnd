@@ -58,6 +58,9 @@
     }
   }
 
+  .modal{
+    color: black;
+  }
 
   .header-tittle{
     animation: float 6s ease-in-out infinite;
